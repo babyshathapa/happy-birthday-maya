@@ -1,0 +1,1905 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Happy Birthday Kanxuu</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #ff6b6b, #ff8e8e, #ffa8a8, #ff6b6b);
+            background-size: 400% 400%;
+            animation: gradientShift 8s ease infinite;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Page System */
+        .page {
+            min-height: 100vh;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.4s ease-in-out, visibility 0.4s ease-in-out;
+        }
+
+        .page.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .page-content {
+            width: 100%;
+            max-width: 900px;
+            text-align: center;
+            animation: fadeInContent 0.6s ease-out;
+        }
+
+        @keyframes fadeInContent {
+            from { 
+                opacity: 0; 
+                transform: translateY(20px); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0); 
+            }
+        }
+
+        /* Welcome Page Styles */
+        .welcome-title {
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            color: #fff;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.4);
+            margin-bottom: 30px;
+            font-weight: bold;
+        }
+
+        .welcome-subtitle {
+            font-size: clamp(1.2rem, 4vw, 2rem);
+            color: #fff;
+            font-style: italic;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            margin-bottom: 50px;
+        }
+
+        .gif-container {
+            width: clamp(300px, 85vw, 450px);
+            height: clamp(300px, 85vw, 450px);
+            border-radius: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 40px auto;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+        }
+
+        .gif-container:hover,
+        .gif-container:active {
+            transform: scale(1.05);
+        }
+
+        .birthday-gif {
+            width: 100%;
+            height: 100%;
+            border-radius: 25px;
+            object-fit: cover;
+        }
+
+        .gif-fallback {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #ff9a9e, #fecfef, #ffeaa7);
+            border-radius: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: clamp(3rem, 12vw, 6rem);
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .gif-instruction {
+            color: #fff;
+            font-size: clamp(1rem, 3vw, 1.3rem);
+            font-weight: bold;
+            text-align: center;
+            line-height: 1.4;
+            margin-top: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .click-instruction {
+            color: #fff;
+            font-size: clamp(1rem, 3vw, 1.3rem);
+            margin-top: 30px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+
+        /* Page Titles */
+        .page-title {
+            font-size: clamp(2.2rem, 7vw, 3.5rem);
+            color: #fff;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.4);
+            margin-bottom: 50px;
+            font-weight: bold;
+        }
+
+        /* Content Container */
+        .content-container {
+            background: rgba(255, 255, 255, 0.93);
+            border-radius: 25px;
+            padding: clamp(25px, 6vw, 50px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            backdrop-filter: blur(20px);
+            margin: 0 auto;
+            width: 100%;
+            max-width: 1000px;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+        }
+
+        /* Pictures Page */
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+
+        .photo-item {
+            text-align: center;
+            transform: translateY(30px);
+            opacity: 0;
+            animation: slideUpPhoto 0.8s ease-out forwards;
+        }
+
+        .photo-item:nth-child(1) { animation-delay: 0.1s; }
+        .photo-item:nth-child(2) { animation-delay: 0.2s; }
+        .photo-item:nth-child(3) { animation-delay: 0.3s; }
+        .photo-item:nth-child(4) { animation-delay: 0.4s; }
+        .photo-item:nth-child(5) { animation-delay: 0.5s; }
+        .photo-item:nth-child(6) { animation-delay: 0.6s; }
+        .photo-item:nth-child(7) { animation-delay: 0.7s; }
+        .photo-item:nth-child(8) { animation-delay: 0.8s; }
+        .photo-item:nth-child(9) { animation-delay: 0.9s; }
+        .photo-item:nth-child(10) { animation-delay: 1.0s; }
+        .photo-item:nth-child(11) { animation-delay: 1.1s; }
+        .photo-item:nth-child(12) { animation-delay: 1.2s; }
+
+        @keyframes slideUpPhoto {
+            to { 
+                transform: translateY(0); 
+                opacity: 1; 
+            }
+        }
+
+        .photo-container {
+            width: 100%;
+            height: clamp(140px, 20vw, 180px);
+            background: linear-gradient(135deg, #ff9a9e, #fecfef, #fad0c4);
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: clamp(2rem, 6vw, 2.5rem);
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .photo-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 18px;
+            transition: transform 0.4s ease;
+        }
+
+        .photo-container:hover .photo-image,
+        .photo-container:active .photo-image {
+            transform: scale(1.1);
+        }
+
+        .photo-container:hover,
+        .photo-container:active {
+            transform: scale(1.08) rotate(-2deg);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+
+        .photo-emoji {
+            font-size: clamp(2rem, 6vw, 2.5rem);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .photo-description {
+            color: #555;
+            font-size: clamp(0.85rem, 2.5vw, 1.1rem);
+            line-height: 1.5;
+            padding: 0 10px;
+            font-style: italic;
+        }
+
+        .photo-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 5000;
+            padding: 20px;
+        }
+
+        .photo-modal.active {
+            display: flex;
+        }
+
+        .modal-photo-content {
+            position: relative;
+            max-width: 90vw;
+            max-height: 90vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-photo {
+            max-width: 100%;
+            max-height: 90vh;
+            width: auto;
+            height: auto;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            object-fit: contain;
+        }
+
+        .close-photo-modal {
+            position: absolute;
+            top: -50px;
+            right: -10px;
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            z-index: 5001;
+        }
+
+        .close-photo-modal:hover {
+            background: #fff;
+            transform: scale(1.1);
+        }
+
+        /* Wishes Page */
+        .wish-item {
+            font-size: clamp(1.1rem, 3.5vw, 1.4rem);
+            color: #555;
+            margin: 25px 0;
+            padding: 25px;
+            background: linear-gradient(135deg, #ffeaa7, #fab1a0, #fd79a8);
+            border-radius: 20px;
+            transform: translateX(-50px);
+            opacity: 0;
+            animation: slideInWish 0.8s ease-out forwards;
+            line-height: 1.6;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .wish-item:nth-child(1) { animation-delay: 0.2s; }
+        .wish-item:nth-child(2) { animation-delay: 0.4s; }
+        .wish-item:nth-child(3) { animation-delay: 0.6s; }
+        .wish-item:nth-child(4) { animation-delay: 0.8s; }
+
+        @keyframes slideInWish {
+            to { 
+                transform: translateX(0); 
+                opacity: 1; 
+            }
+        }
+
+        /* Love Letter Page */
+        .letter-container {
+            background: rgba(255, 255, 255, 0.93);
+            border-radius: 25px;
+            padding: clamp(30px, 7vw, 60px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            backdrop-filter: blur(20px);
+            margin: 0 auto;
+            width: 100%;
+            max-width: 800px;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+        }
+
+        .letter-title {
+            font-size: clamp(2rem, 6vw, 2.8rem);
+            color: #ff6b6b;
+            margin-bottom: 40px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .letter-content {
+            font-size: clamp(1.1rem, 3.5vw, 1.3rem);
+            line-height: 1.8;
+            color: #333;
+            margin-bottom: 25px;
+            text-align: left;
+            font-style: italic;
+        }
+
+        .letter-signature {
+            text-align: right;
+            font-style: italic;
+            color: #ff6b6b;
+            font-size: clamp(1rem, 3vw, 1.2rem);
+            margin-top: 40px;
+            font-weight: bold;
+        }
+
+        /* Video Page */
+        .video-section {
+            margin: 30px 0;
+        }
+
+        .main-video-container {
+            margin-bottom: 40px;
+        }
+
+        .main-video-item {
+            position: relative;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .main-video-item:hover,
+        .main-video-item:active {
+            transform: scale(1.03);
+            box-shadow: 0 20px 45px rgba(0,0,0,0.3);
+        }
+
+        .main-video-thumbnail {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background: linear-gradient(135deg, #667eea, #764ba2, #f093fb);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: clamp(3rem, 8vw, 4rem);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .main-video-thumbnail-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 0;
+        }
+
+        .main-play-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80px;
+            height: 80px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            color: #333;
+            animation: mainPlayPulse 2s ease-in-out infinite;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+
+        @keyframes mainPlayPulse {
+            0% { transform: translate(-50%, -50%) scale(1); }
+            50% { transform: translate(-50%, -50%) scale(1.15); }
+            100% { transform: translate(-50%, -50%) scale(1); }
+        }
+
+        .main-video-title {
+            padding: 25px;
+            background: #fff;
+            color: #555;
+            font-size: clamp(1.2rem, 3.5vw, 1.5rem);
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .small-videos-container {
+            margin-top: 40px;
+        }
+
+        .small-videos-title {
+            font-size: clamp(1.3rem, 4vw, 1.6rem);
+            color: #555;
+            margin-bottom: 25px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 25px;
+            margin: 25px 0;
+        }
+
+        .video-item {
+            position: relative;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+
+        .video-item:hover,
+        .video-item:active {
+            transform: scale(1.05);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.25);
+        }
+
+        .video-thumbnail {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background: linear-gradient(135deg, #ffeaa7, #fab1a0, #fd79a8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: clamp(2rem, 6vw, 2.5rem);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .video-thumbnail-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 0;
+        }
+
+        .play-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            color: #333;
+            animation: playPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes playPulse {
+            0% { transform: translate(-50%, -50%) scale(1); }
+            50% { transform: translate(-50%, -50%) scale(1.1); }
+            100% { transform: translate(-50%, -50%) scale(1); }
+        }
+
+        .video-title {
+            padding: 15px;
+            background: #fff;
+            color: #555;
+            font-size: clamp(0.9rem, 2.5vw, 1rem);
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .video-error {
+            display: none;
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            margin: 10px 0;
+        }
+
+        .video-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 5000;
+            padding: 20px;
+        }
+
+        .video-modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            position: relative;
+            width: 100%;
+            max-width: 900px;
+            aspect-ratio: 16 / 9;
+            max-height: 80vh;
+        }
+
+        .modal-video {
+            width: 100%;
+            height: 100%;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            object-fit: contain;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: -50px;
+            right: 0;
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .close-modal:hover {
+            background: #fff;
+            transform: scale(1.1);
+        }
+
+        .video-loading {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #fff;
+            font-size: 1.2rem;
+            z-index: 10;
+        }
+
+        .video-error-modal {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(255, 255, 255, 0.95);
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            color: #333;
+            z-index: 10;
+        }
+
+        /* Proposal Page */
+        .proposal-container {
+            width: 100%;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .proposal-gif-container {
+            width: 100%;
+            max-width: 400px;
+            height: 300px;
+            margin: 30px auto;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+        }
+
+        .proposal-gif {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 20px;
+        }
+
+        .proposal-gif-fallback {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #ff9a9e, #fecfef, #ffeaa7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            border-radius: 20px;
+        }
+
+        .proposal-text {
+            font-size: clamp(1.1rem, 3.5vw, 1.5rem);
+            line-height: 1.8;
+            color: #333;
+            margin-bottom: 30px;
+            font-style: italic;
+        }
+
+        .ring-container {
+            width: 100%;
+            max-width: 350px;
+            height: 250px;
+            margin: 40px auto;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            position: relative;
+        }
+
+        .ring-gif {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 20px;
+        }
+
+        .ring-fallback {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #ff9a9e, #fecfef, #ffeaa7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: clamp(4rem, 15vw, 7rem);
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            border-radius: 20px;
+        }
+
+        .proposal-question {
+            font-size: clamp(1.8rem, 6vw, 2.5rem);
+            color: #ff6b6b;
+            font-weight: bold;
+            margin: 40px 0;
+        }
+
+        .answer-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            align-items: center;
+            margin-top: 40px;
+        }
+
+        .answer-button {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a6f);
+            color: white;
+            border: none;
+            padding: 18px 45px;
+            font-size: clamp(1.1rem, 3.5vw, 1.4rem);
+            border-radius: 35px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 8px 25px rgba(255, 107, 107, 0.4);
+            min-width: 220px;
+            font-weight: bold;
+        }
+
+        .answer-button:hover,
+        .answer-button:active {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(255, 107, 107, 0.6);
+        }
+
+        .answer-button.no {
+            background: linear-gradient(135deg, #ddd, #bbb);
+            box-shadow: 0 8px 25px rgba(187, 187, 187, 0.4);
+        }
+
+        .answer-button.no:hover,
+        .answer-button.no:active {
+            animation: shake 0.6s ease-in-out;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-15px); }
+            75% { transform: translateX(15px); }
+        }
+
+        /* Are You Sure Modal */
+        .are-you-sure-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 4000;
+            padding: 20px;
+        }
+
+        .are-you-sure-content {
+            background: rgba(255, 255, 255, 0.93);
+            border-radius: 25px;
+            padding: clamp(30px, 8vw, 50px);
+            text-align: center;
+            max-width: 500px;
+            width: 100%;
+            animation: popIn 0.5s ease-out;
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+        }
+
+        @keyframes popIn {
+            0% { transform: scale(0.7); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .are-you-sure-text {
+            font-size: clamp(1.3rem, 4vw, 1.8rem);
+            color: #ff6b6b;
+            font-weight: bold;
+            margin-bottom: 30px;
+        }
+
+        .are-you-sure-message {
+            font-size: clamp(1rem, 3vw, 1.2rem);
+            color: #555;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .are-you-sure-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .sure-button {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a6f);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: clamp(1rem, 3vw, 1.2rem);
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+            min-width: 120px;
+            font-weight: bold;
+        }
+
+        .sure-button:hover,
+        .sure-button:active {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 107, 107, 0.6);
+        }
+
+        .sure-button.no-sure {
+            background: linear-gradient(135deg, #ddd, #bbb);
+            box-shadow: 0 5px 15px rgba(187, 187, 187, 0.4);
+        }
+
+        /* Navigation Button */
+        .nav-button {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a6f);
+            color: white;
+            border: none;
+            padding: 18px 35px;
+            font-size: clamp(1rem, 3vw, 1.2rem);
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            margin: 30px 10px;
+            box-shadow: 0 8px 20px rgba(255, 107, 107, 0.4);
+            font-weight: bold;
+        }
+
+        .nav-button:hover,
+        .nav-button:active {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 30px rgba(255, 107, 107, 0.6);
+        }
+
+        /* Floating Love Emojis */
+        .heart-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1000;
+            overflow: hidden;
+        }
+
+        .heart {
+            position: absolute;
+            font-size: clamp(18px, 5vw, 28px);
+            color: rgba(255, 255, 255, 0.8);
+            animation: float 12s ease-in-out infinite;
+            will-change: transform, opacity;
+            transform: translateZ(0);
+        }
+
+        @keyframes float {
+            0% { 
+                transform: translateY(100vh) rotate(0deg); 
+                opacity: 1; 
+            }
+            100% { 
+                transform: translateY(-100px) rotate(360deg); 
+                opacity: 0; 
+            }
+        }
+
+        /* Reduce heart animations on mobile */
+        @media (max-width: 768px) {
+            .heart {
+                animation: float 15s;
+            }
+        }
+
+        .music-control {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 2000;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 50px;
+            padding: 12px 25px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+            backdrop-filter: blur(15px);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .control-buttons {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .music-button {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a6f);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            font-weight: bold;
+        }
+
+        .music-button:hover,
+        .music-button:active {
+            transform: scale(1.05);
+        }
+
+        /* Celebration Overlay */
+        .celebration-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.95) 0%, rgba(255, 182, 193, 0.9) 100%);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 6000;
+            padding: 20px;
+        }
+
+        .celebration-content {
+            text-align: center;
+            color: #ff6b6b;
+            animation: celebrationPop 1s ease-out;
+        }
+
+        @keyframes celebrationPop {
+            0% { transform: scale(0.5); opacity: 0; }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .celebration-text {
+            font-size: clamp(2.5rem, 10vw, 4rem);
+            margin-bottom: 30px;
+            font-weight: bold;
+        }
+
+        .celebration-message {
+            font-size: clamp(1.2rem, 4vw, 1.8rem);
+            margin-bottom: 30px;
+            font-style: italic;
+        }
+
+        .tap-to-restart {
+            font-size: clamp(1rem, 3vw, 1.2rem);
+            margin-top: 20px;
+            cursor: pointer;
+        }
+
+        /* Mobile Optimizations */
+        @media (max-width: 768px) {
+            .page {
+                padding: 15px;
+            }
+
+            .answer-buttons {
+                width: 100%;
+            }
+
+            .answer-button {
+                width: 85%;
+                max-width: 300px;
+            }
+
+            .photo-grid {
+                grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+                gap: 20px;
+            }
+
+            .video-grid {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+                gap: 15px;
+            }
+
+            .main-video-thumbnail {
+                aspect-ratio: 16 / 9;
+            }
+
+            .main-play-button {
+                width: 60px;
+                height: 60px;
+                font-size: 24px;
+            }
+
+            .play-button {
+                width: 40px;
+                height: 40px;
+                font-size: 14px;
+            }
+
+            .music-control {
+                top: 15px;
+                right: 15px;
+                padding: 8px 15px;
+            }
+
+            .music-button {
+                padding: 6px 12px;
+                font-size: 0.8rem;
+            }
+
+            .modal-content {
+                max-height: 70vh;
+                max-width: 95vw;
+            }
+
+            .close-modal {
+                top: -45px;
+                width: 35px;
+                height: 35px;
+                font-size: 18px;
+            }
+
+            .close-photo-modal {
+                top: -45px;
+                right: -5px;
+                width: 35px;
+                height: 35px;
+                font-size: 18px;
+            }
+
+            .small-videos-title {
+                font-size: 1.2rem;
+                margin-bottom: 20px;
+            }
+
+            .are-you-sure-content {
+                padding: 25px;
+                margin: 15px;
+            }
+
+            .are-you-sure-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .sure-button {
+                width: 80%;
+                max-width: 250px;
+            }
+
+            .proposal-gif-container {
+                height: 200px;
+                margin: 20px auto;
+            }
+
+            .modal-photo-content {
+                max-width: 95vw;
+                max-height: 85vh;
+            }
+        }
+
+        /* Touch feedback */
+        .touchable {
+            -webkit-tap-highlight-color: rgba(255, 107, 107, 0.3);
+        }
+
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Prevent text selection on interactive elements */
+        .gif-container,
+        .photo-container,
+        .video-item,
+        .answer-button,
+        .nav-button {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Hearts Container -->
+    <div class="heart-container" id="heartContainer"></div>
+    
+    <!-- Music Control -->
+    <div class="music-control">
+        <button class="music-button touchable" onclick="toggleMusic()" id="musicBtn">🎵 Play Music</button>
+    </div>
+
+    <!-- Hidden Audio Elements -->
+    <audio id="birthdayMusic" loop>
+        <source src="timi ma.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Page 1: Welcome -->
+    <div class="page active" id="page1">
+        <div class="page-content">
+            <h1 class="welcome-title">Happy Birthday Mero Kanxuu 🎂😚</h1>
+            <p class="welcome-subtitle">To the most amazing person in the world 🤭🌹</p>
+            <div class="gif-container touchable" onclick="startJourney()">
+                <img class="birthday-gif" src="bday.gif" alt="Happy Birthday GIF" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <div class="gif-fallback" style="display: none;">
+                    🎉🎂🎉
+                </div>
+            </div>
+            <div class="gif-instruction">Tap to start maya 💖✨</div>
+            <p class="click-instruction">Get ready for a magical journey kanxuu 💖</p>
+        </div>
+    </div>
+
+    <!-- Page 2: Pictures -->
+    <div class="page" id="page2">
+        <div class="page-content">
+            <h2 class="page-title">Our Memories 🥰📸</h2>
+            <div class="content-container">
+                <div class="photo-grid">
+                    <div class="photo-item">
+                        <div class="photo-container touchable" onclick="openPhoto('h.jpg', 'First Meeting')">
+                            <img class="photo-image" src="h.jpg" alt="First Meeting" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                            <div class="photo-emoji" style="display: none;">📸</div>
+                        </div>
+                        <div class="photo-description">Haat samateko bela😁- The day my heart knew it found its home</div>
+                    </div>
+                    <div class="photo-item">
+                        <div class="photo-container touchable" onclick="openPhoto('k.jpg', 'Our First Kiss')">
+                            <img class="photo-image" src="k.jpg" alt="Our First Kiss" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                            <div class="photo-emoji" style="display: none;">💕</div>
+                        </div>
+                        <div class="photo-description">Our First Kiss🤭 - Time stopped in that magical moment</div>
+                    </div>
+                    <div class="photo-item">
+                        <div class="photo-container touchable" onclick="openPhoto('a.jpg', 'Together Adventures')">
+                            <img class="photo-image" src="a.jpg" alt="Together Adventures" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                            <div class="photo-emoji" style="display: none;">🌟</div>
+                        </div>
+                        <div class="photo-description">When we were together😚- Every journey is better with you</div>
+                    </div>
+                    <div class="photo-item">
+                        <div class="photo-container touchable" onclick="openPhoto('t.jpg', 'Our Smiles')">
+                            <img class="photo-image" src="t.jpg" alt="Our Smiles" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                            <div class="photo-emoji" style="display: none;">🥰</div>
+                        </div>
+                        <div class="photo-description">Our smile 🥺- Haayee How happy we used to be babe🥺</div>
+                    </div>
+                    <div class="photo-item">
+                        <div class="photo-container touchable" onclick="openPhoto('g.jpg', 'Birthday Memories')">
+                            <img class="photo-image" src="g.jpg" alt="Birthday Memories" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                            <div class="photo-emoji" style="display: none;">🎂</div>
+                        </div>
+                        <div class="photo-description">I miss us 🫶 - Another year of loving you more</div>
+                    </div>
+                    <div class="photo-item">
+                        <div class="photo-container touchable" onclick="openPhoto('i.jpg', 'Sunrise Together')">
+                            <img class="photo-image" src="i.jpg" alt="Sunrise Together" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                            <div class="photo-emoji" style="display: none;">🌅</div>
+                        </div>
+                        <div class="photo-description">Us 😚- First ever photo together aru le khicheko k ta babe😘</div>
+                    </div>
+                    <div class="photo-item">
+                        <div class="photo-container touchable" onclick="openPhoto('r.jpg', 'Silly Moments')">
+                            <img class="photo-image" src="r.jpg" alt="Silly Moments" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                            <div class="photo-emoji" style="display: none;">😂</div>
+                        </div>
+                        <div class="photo-description">Bus Moment😂 - Risayera Khicheko k ta maya😂?</div>
+                    </div>
+                    <div class="photo-item">
+                        <div class="photo-container touchable" onclick="openPhoto('c.jpg', 'Celebration Time')">
+                            <img class="photo-image" src="c.jpg" alt="Celebration Time" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                            <div class="photo-emoji" style="display: none;">🎊</div>
+                        </div>
+                        <div class="photo-description">Class Time Hehe😁 - Lab ko bela k ta baby😁....</div>
+                    </div>
+                    <div class="photo-item">
+                        <div class="photo-container touchable" onclick="openPhoto('w.jpg', 'Romantic Evening')">
+                            <img class="photo-image" src="w.jpg" alt="Romantic Evening" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                            <div class="photo-emoji" style="display: none;">🌹</div>
+                        </div>
+                        <div class="photo-description">Unknown Pic😜 - K ta saathi hrle khichdeko hamle tha napai😜...</div>
+                    </div>
+                    <div class="photo-item">
+                        <div class="photo-container touchable" onclick="openPhoto('p.jpg', 'Just Us')">
+                            <img class="photo-image" src="p.jpg" alt="Just Us" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                            <div class="photo-emoji" style="display: none;">💖</div>
+                        </div>
+                        <div class="photo-description">Just Us Being Us😉 - Perfect in our imperfections hehe😉😘</div>
+                    </div>
+                    <div class="photo-item">
+                        <div class="photo-container touchable" onclick="openPhoto('s.jpg', 'Midnight Talks')">
+                            <img class="photo-image" src="s.jpg" alt="Midnight Talks" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                            <div class="photo-emoji" style="display: none;">🌙</div>
+                        </div>
+                        <div class="photo-description">Program ko bela😝 - Hehe ek arka lai herna vetna matra ni niskinthem haii😝</div>
+                    </div>
+                    <div class="photo-item">
+                        <div class="photo-container touchable" onclick="openPhoto('m.jpg', 'Magical Moments')">
+                            <img class="photo-image" src="m.jpg" alt="Magical Moments" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                            <div class="photo-emoji" style="display: none;">✨</div>
+                        </div>
+                        <div class="photo-description">First Vet Bahira😘 - First choti ghumna gako k ta babe😘</div>
+                    </div>
+                </div>
+                <button class="nav-button touchable" onclick="nextPage()">Continue saana🤭🌹</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Photo Modal -->
+    <div class="photo-modal" id="photoModal">
+        <div class="modal-photo-content">
+            <button class="close-photo-modal touchable" onclick="closePhoto()">✕</button>
+            <img class="modal-photo" id="modalPhoto" src="" alt="">
+        </div>
+    </div>
+
+    <!-- Page 3: Birthday Wishes -->
+    <div class="page" id="page3">
+        <div class="page-content">
+            <h2 class="page-title">My Birthday Wishes for You Saana🤭🌹</h2>
+            <div class="content-container">
+                <div class="wish-item">
+                    🌟 May this year bring you endless joy, success, and all your heart's desires saana🤭🌹
+                </div>
+                <div class="wish-item">
+                    💖 May our love continue to grow stronger and deeper with each passing day maya🥺
+                </div>
+                <div class="wish-item">
+                    🌈 May your every moment be filled with laughter, adventure, and beautiful surprises buduu😚
+                </div>
+                <div class="wish-item">
+                    ✨ May you always know how deeply loved, cherished, and appreciated you are babyy🫶💖. Never feel alone huss bachha I am alwys with you😘
+                </div>
+                <button class="nav-button touchable" onclick="nextPage()">Continue Babyy🫶💖</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Page 4: Love Letter -->
+    <div class="page" id="page4">
+        <div class="page-content">
+            <h2 class="page-title">A Letter From My Heart Maya💌</h2>
+            <div class="letter-container">
+                <h2 class="letter-title">My Dearest Kanxuu 💕</h2>
+                <div class="letter-content">
+                    <p>Mero maya🥺,</p>
+                    <p>Today marks another year of your beautiful existence, and I can't help but feel overwhelmed with gratitude for having you in my life😘. You are not just my boyfriend; you are my best friend, my confidant, my safe haven, and my greatest love babe💖.</p>
+                    <p>Every day with you feels like a gift. Your kindness touches my soul, your humor brightens my darkest days, and your love gives me strength I never knew I had. You see the best in me even when I can't see it myself💖🌹.</p>
+                    <p>I love the way you make me laugh until my cheeks hurt, the way you hold me when I need comfort, and the way you believe in our dreams. You make me want to be a better person just by being yourself.</p>
+                    <p>Happy Birthday to the man who holds my heart completely. Here's to another year of love, laughter, and beautiful memories together saana🤭🌹.</p>
+                </div>
+                <div class="letter-signature">
+                    Forever yours,<br>
+                    Dallo😁💕
+                </div>
+                <button class="nav-button touchable" onclick="nextPage()">Next Please😁🎬</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Page 5: Videos -->
+    <div class="page" id="page5">
+        <div class="page-content">
+            <h2 class="page-title">My creation of our Memories Saana🤭🌹 🎬</h2>
+            <div class="content-container">
+                <!-- Main Featured Video -->
+                <div class="main-video-container">
+                    <div class="main-video-item touchable" onclick="openVideo('main.mp4', 'Our Love Story')">
+                        <div class="main-video-thumbnail">
+                            <img class="main-video-thumbnail-img" src="main_thumbnail.jpg" alt="Our Love Story Thumbnail" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                            <div class="video-fallback" style="display: none;">🎬💕</div>
+                            <div class="main-play-button">▶️</div>
+                        </div>
+                        <div class="main-video-title">Our Love Story Saana🤭🌹</div>
+                    </div>
+                   
+                </div>
+                
+                <!-- Smaller Videos -->
+                <div class="small-videos-container">
+                    <div class="small-videos-title">More Special Moments</div>
+                    <div class="video-grid">
+                        <div class="video-item touchable" onclick="openVideo('video1.mp4', 'First Date Memories')">
+                            <div class="video-thumbnail">
+                                <img class="video-thumbnail-img" src="video1_thumbnail.jpg" alt="First Date Memories Thumbnail" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                                <div class="video-fallback" style="display: none;">💕</div>
+                                <div class="play-button">▶️</div>
+                            </div>
+                            <div class="video-title">I miss us Baby🥺</div>
+                        </div>
+                        
+                        <div class="video-item touchable" onclick="openVideo('video2.mp4', 'Our Adventures')">
+                            <div class="video-thumbnail">
+                                <img class="video-thumbnail-img" src="video2_thumbnail.jpg" alt="Our Adventures Thumbnail" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                                <div class="video-fallback" style="display: none;">🌟</div>
+                                <div class="play-button">▶️</div>
+                            </div>
+                            <div class="video-title">Hami🫶</div>
+                        </div>
+                        
+                        <div class="video-item touchable" onclick="openVideo('video3.mp4', 'Silly Moments')">
+                            <div class="video-thumbnail">
+                                <img class="video-thumbnail-img" src="video3_thumbnail.jpg" alt="Silly Moments Thumbnail" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                                <div class="video-fallback" style="display: none;">😂</div>
+                                <div class="play-button">▶️</div>
+                            </div>
+                            <div class="video-title">Hehe😝🌹</div>
+                        </div>
+                    </div>
+                    
+                </div>
+                
+                <button class="nav-button touchable" onclick="nextPage()">One Final Surprise Babe🌹</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Page 6: Final Surprise -->
+    <div class="page" id="page6">
+        <div class="page-content">
+            <h2 class="page-title">One Final Surprise babe! 💖</h2>
+            <div class="content-container">
+                <div class="proposal-container">
+                    <div class="proposal-text">
+                        Before I ask you the most important question of my life, I want you to know that you have made every single day of my life more beautiful, more meaningful, and more full of love.
+                    </div>
+                    
+                    <div class="proposal-gif-container">
+                        <img class="proposal-gif" src="pro.gif" alt="Proposal GIF" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="proposal-gif-fallback" style="display: none;">
+                            ✨💕
+                        </div>
+                    </div>
+                    
+                    <div class="proposal-text">
+                        You are my heart, my soul, my everything. I cannot imagine spending my life with anyone else but you. You complete me in every way possible.
+                    </div>
+                    
+                    <button class="nav-button touchable" onclick="nextPage()">The Question 💖</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Page 7: Proposal Question -->
+    <div class="page" id="page7">
+        <div class="page-content">
+            <h2 class="page-title">The Most Important Question Bachha🥺🫶</h2>
+            <div class="content-container">
+                <div class="proposal-container">
+                    <div class="ring-container">
+                        <img class="ring-gif" src="ilu.gif" alt="Ring GIF" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="ring-fallback" style="display: none;">
+                        </div>
+                    </div>
+
+                    <div class="proposal-question">
+                        Will you marry me Kanxuu🥺? 💕
+                    </div>
+                    <div class="answer-buttons">
+                        <button class="answer-button touchable" onclick="acceptProposal()">YES! 💖</button>
+                        <button class="answer-button no touchable" onclick="showAreYouSure()" id="noButton">NO 😞</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Are You Sure Modal -->
+    <div class="are-you-sure-overlay" id="areYouSureModal">
+        <div class="are-you-sure-content">
+            <div class="are-you-sure-text" id="sureTitle">Are you sure? 🥺</div>
+            <div class="are-you-sure-message" id="sureMessage">
+                But we're perfect together! Please reconsider maya... 💕
+            </div>
+            <div class="are-you-sure-buttons">
+                <button class="sure-button touchable" onclick="finalYes()">Actually, YES! 💖</button>
+                <button class="sure-button no-sure touchable" onclick="stillNo()">Still No 😔</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Celebration Overlay -->
+    <div class="celebration-overlay" id="celebrationOverlay">
+        <div class="celebration-content">
+            <div class="celebration-text">🎉 YES! We're Engaged! 💍😁</div>
+            <div class="celebration-message">I love you so much mutu😁😘! Happy Birthday, my future hubby😘! 💕</div>
+            <div class="tap-to-restart">Tap anywhere to start over ✨</div>
+        </div>
+    </div>
+<!-- Video Modal -->
+<div class="video-modal" id="videoModal">
+    <div class="modal-content">
+        <button class="close-modal touchable" onclick="closeVideo()">✕</button>
+        <video class="modal-video" id="modalVideo" controls>
+            <source id="videoSource" src="" type="video/mp4">
+        </video>
+        <div class="video-loading" id="videoLoading">Loading...</div>
+        <div class="video-error-modal" id="videoErrorModal">
+            Sorry, the video <span id="expectedFile"></span> could not be loaded.
+        </div>
+    </div>
+</div>
+    <script>
+
+        function isMobileDevice() {
+    return /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+}
+
+        let currentPage = 1;
+        const totalPages = 7;
+        let musicPlaying = false;
+        let audioInitialized = false;
+        let noClickCount = 0;
+        let heartInterval;
+        const maxHearts = 10;
+
+        function createHeart() {
+            const heartContainer = document.getElementById('heartContainer');
+            const existingHearts = heartContainer.querySelectorAll('.heart');
+
+            if (existingHearts.length >= maxHearts) {
+                return;
+            }
+
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            const heartEmojis = ['💕', '💖', '💗', '💝', '💘', '❤️', '🧡', '💛', '💚', '💙', '💜'];
+            heart.innerHTML = heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
+            heart.style.left = Math.random() * 100 + '%';
+            heart.style.animationDuration = (Math.random() * 4 + 8) + 's';
+            heart.style.animationDelay = Math.random() * 2 + 's';
+            heartContainer.appendChild(heart);
+
+            setTimeout(() => {
+                if (heart.parentNode) {
+                    heart.remove();
+                }
+            }, 12000);
+        }
+
+        function startHeartAnimation() {
+            if (heartInterval) clearInterval(heartInterval);
+            heartInterval = setInterval(createHeart, 2000);
+        }
+
+        function initializeAudio() {
+            if (!audioInitialized) {
+                const music = document.getElementById('birthdayMusic');
+                music.play().then(() => {
+                    musicPlaying = true;
+                    document.getElementById('musicBtn').textContent = '🎵 Pause';
+                    audioInitialized = true;
+                }).catch(e => {
+                    console.log('Audio initialization failed:', e);
+                });
+            }
+        }
+
+        function startJourney() {
+            initializeAudio();
+            if (!isMobileDevice()) window.scrollTo(0, 0);
+            nextPage();
+        }
+
+        function nextPage() {
+            if (currentPage < totalPages) {
+                const currentPageEl = document.getElementById(`page${currentPage}`);
+                const nextPageEl = document.getElementById(`page${currentPage + 1}`);
+                
+                currentPageEl.classList.remove('active');
+                
+                setTimeout(() => {
+                    currentPage++;
+                    nextPageEl.classList.add('active');
+                    
+                   if (!isMobile()) {
+                        window.scrollTo({
+                            top: 0,
+                            behavior: 'instant'
+                        });
+                    }
+                    
+                    const pageContent = nextPageEl.querySelector('.page-content');
+                    pageContent.style.animation = 'none';
+                    setTimeout(() => {
+                        pageContent.style.animation = 'fadeInContent 0.6s ease-out';
+                    }, 50);
+
+                    if (currentPage === 5) {
+                        checkVideoAvailability();
+                    }
+                }, 150);
+            }
+        }
+
+        function checkVideoAvailability() {
+            const videos = ['main.mp4', 'video1.mp4', 'video2.mp4', 'video3.mp4'];
+            videos.forEach((videoSrc, index) => {
+                const video = document.createElement('video');
+                video.src = videoSrc;
+                video.onloadedmetadata = () => {
+                    console.log(`Video ${videoSrc} is available.`);
+                    video.remove();
+                };
+                video.onerror = () => {
+                    console.error(`Failed to load video ${videoSrc}`);
+                    if (index === 0) {
+                        document.getElementById('mainVideoError').style.display = 'block';
+                    } else {
+                        document.getElementById('smallVideosError').style.display = 'block';
+                    }
+                    video.remove();
+                };
+            });
+        }
+
+        function openPhoto(photoSrc, photoTitle) {
+            const modal = document.getElementById('photoModal');
+            const photo = document.getElementById('modalPhoto');
+            
+            photo.src = photoSrc;
+            photo.alt = photoTitle;
+            
+            modal.classList.add('active');
+            
+            photo.onerror = function() {
+                console.log('Failed to load photo:', photoSrc);
+                this.alt = 'Photo could not be loaded: ' + photoTitle;
+            };
+            
+            photo.onload = function() {
+                console.log('Photo loaded successfully:', photoSrc);
+            };
+        }
+
+        function closePhoto() {
+            const modal = document.getElementById('photoModal');
+            const photo = document.getElementById('modalPhoto');
+            
+            modal.classList.remove('active');
+            
+            setTimeout(() => {
+                photo.src = '';
+                photo.alt = '';
+            }, 300);
+        }
+
+        function openVideo(videoSrc, videoTitle) {
+            const modal = document.getElementById('videoModal');
+            const video = document.getElementById('modalVideo');
+            const source = document.getElementById('videoSource');
+            const loading = document.getElementById('videoLoading');
+            const errorModal = document.getElementById('videoErrorModal');
+            const expectedFile = document.getElementById('expectedFile');
+            
+            loading.style.display = 'block';
+            errorModal.style.display = 'none';
+            video.style.display = 'none';
+            
+            console.log(`Attempting to load video: ${videoSrc}`);
+            expectedFile.textContent = videoSrc;
+            source.src = videoSrc;
+            
+            modal.classList.add('active');
+            
+            video.load();
+            
+            video.onloadeddata = function() {
+                console.log(`Video ${videoSrc} loaded successfully.`);
+                loading.style.display = 'none';
+                errorModal.style.display = 'none';
+                video.style.display = 'block';
+                
+                if (musicPlaying) {
+                    document.getElementById('birthdayMusic').volume = 0.2;
+                }
+            };
+            
+            video.onerror = function(e) {
+                console.error(`Error loading video ${videoSrc}:`, e);
+                loading.style.display = 'none';
+                video.style.display = 'none';
+                errorModal.style.display = 'block';
+                if (videoSrc === 'main.mp4') {
+                    document.getElementById('mainVideoError').style.display = 'block';
+                }
+            };
+            
+            setTimeout(() => {
+                if (video.readyState === 0) {
+                    console.error(`Video ${videoSrc} failed to load within 5 seconds.`);
+                    loading.style.display = 'none';
+                    video.style.display = 'none';
+                    errorModal.style.display = 'block';
+                    if (videoSrc === 'main.mp4') {
+                        document.getElementById('mainVideoError').style.display = 'block';
+                    }
+                }
+            }, 5000);
+        }
+
+        function closeVideo() {
+            const modal = document.getElementById('videoModal');
+            const video = document.getElementById('modalVideo');
+            const loading = document.getElementById('videoLoading');
+            const errorModal = document.getElementById('videoErrorModal');
+            const source = document.getElementById('videoSource');
+            
+            video.pause();
+            video.currentTime = 0;
+            
+            modal.classList.remove('active');
+            
+            loading.style.display = 'none';
+            errorModal.style.display = 'none';
+            video.style.display = 'block';
+            source.src = '';
+            
+            if (musicPlaying) {
+                document.getElementById('birthdayMusic').volume = 1;
+            }
+        }
+
+        function acceptProposal() {
+            document.getElementById('celebrationOverlay').style.display = 'flex';
+            
+            const celebrationCount = 15;
+            for (let i = 0; i < celebrationCount; i++) {
+                setTimeout(createHeart, i * 50);
+            }
+        }
+
+        function showAreYouSure() {
+            document.getElementById('areYouSureModal').style.display = 'flex';
+        }
+
+        function finalYes() {
+            document.getElementById('areYouSureModal').style.display = 'none';
+            acceptProposal();
+        }
+
+        function stillNo() {
+            noClickCount++;
+            
+            const sureTitle = document.getElementById('sureTitle');
+            const sureMessage = document.getElementById('sureMessage');
+            const modal = document.getElementById('areYouSureModal');
+            
+            const messages = [
+                {
+                    title: "Really? 🥺💔",
+                    message: "Think about all our beautiful memories together... Please give us a chance! 💕"
+                },
+                {
+                    title: "One more time? 🙏✨",
+                    message: "I promise I'll make you the happiest person alive! We're meant to be together! 💖"
+                },
+                {
+                    title: "Last chance... 💍💫",
+                    message: "My heart beats only for you. I can't imagine life without you by my side. Please say yes! 💕"
+                },
+                {
+                    title: "I love you so much! 💖💖",
+                    message: "You are my everything, my soulmate, my forever. Will you please marry me? 🥺💍"
+                }
+            ];
+            
+            if (noClickCount < messages.length) {
+                sureTitle.textContent = messages[noClickCount].title;
+                sureMessage.textContent = messages[noClickCount].message;
+            } else {
+                sureTitle.textContent = "Only one answer left... 💖";
+                sureMessage.textContent = "My heart belongs to you forever. Please make me the happiest person alive! 💍✨";
+                
+                const buttons = modal.querySelector('.are-you-sure-buttons');
+                buttons.innerHTML = `
+                    <button class="sure-button touchable" onclick="finalYes()">YES, I will marry you! 💖💍</button>
+                `;
+            }
+        }
+
+        function restartJourney() {
+            document.getElementById('celebrationOverlay').style.display = 'none';
+            document.getElementById('areYouSureModal').style.display = 'none';
+            
+            noClickCount = 0;
+            
+            document.getElementById('sureTitle').textContent = "Are you sure? 🥺";
+            document.getElementById('sureMessage').textContent = "But we're perfect together! Please reconsider... 💕";
+            
+            const modal = document.getElementById('areYouSureModal');
+            const buttons = modal.querySelector('.are-you-sure-buttons');
+            buttons.innerHTML = `
+                <button class="sure-button touchable" onclick="finalYes()">Actually, YES! 💖</button>
+                <button class="sure-button no-sure touchable" onclick="stillNo()">Still No 😔</button>
+            `;
+            
+            const currentPageEl = document.getElementById(`page${currentPage}`);
+            const firstPageEl = document.getElementById('page1');
+            
+            currentPageEl.classList.remove('active');
+            
+            currentPage = 1;
+            
+            if (!isMobileDevice()) window.scrollTo(0, 0);
+            
+            setTimeout(() => {
+                firstPageEl.classList.add('active');
+                
+                const pageContent = firstPageEl.querySelector('.page-content');
+                pageContent.style.animation = 'none';
+                setTimeout(() => {
+                    pageContent.style.animation = 'fadeInContent 0.6s ease-out';
+                }, 50);
+            }, 150);
+        }
+
+        function toggleMusic() {
+            const music = document.getElementById('birthdayMusic');
+            const musicBtn = document.getElementById('musicBtn');
+            
+            if (!audioInitialized) {
+                initializeAudio();
+                return;
+            }
+            
+            if (musicPlaying) {
+                music.pause();
+                musicBtn.textContent = '🎵 Play';
+                musicPlaying = false;
+            } else {
+                music.play().then(() => {
+                    musicBtn.textContent = '🎵 Pause';
+                    musicPlaying = true;
+                }).catch(e => {
+                    console.log('Music play failed:', e);
+                });
+            }
+        }
+
+        window.addEventListener('load', function() {
+            setTimeout(() => {
+                startHeartAnimation();
+                
+                for (let i = 0; i < 3; i++) {
+                    setTimeout(createHeart, i * 500);
+                }
+                
+                if (!isMobileDevice()) window.scrollTo(0, 0);
+            }, 500);
+        });
+
+        window.addEventListener('pageshow', function() {
+            if (!isMobileDevice()) window.scrollTo(0, 0);
+        });
+
+        document.addEventListener('touchstart', function() {
+            if (!audioInitialized) {
+                initializeAudio();
+            }
+        }, { passive: true });
+
+        document.querySelectorAll('.touchable').forEach(element => {
+            element.addEventListener('touchstart', function() {
+                this.style.transform = this.style.transform.replace('scale(1)', 'scale(0.95)') || 'scale(0.95)';
+            }, { passive: true });
+            
+            element.addEventListener('touchend', function() {
+                this.style.transform = this.style.transform.replace('scale(0.95)', 'scale(1)') || '';
+            }, { passive: true });
+            
+            element.addEventListener('touchcancel', function() {
+                this.style.transform = this.style.transform.replace('scale(0.95)', 'scale(1)') || '';
+            }, { passive: true });
+        });
+
+        let lastTouchEnd = 0;
+        document.addEventListener('touchend', function(event) {
+            const now = (new Date()).getTime();
+            if (now - lastTouchEnd <= 300) {
+                event.preventDefault();
+            }
+            lastTouchEnd = now;
+        }, false);
+
+        document.addEventListener('gesturestart', function(e) {
+            e.preventDefault();
+        });
+
+        document.addEventListener('gesturechange', function(e) {
+            e.preventDefault();
+        });
+
+        document.addEventListener('gestureend', function(e) {
+            e.preventDefault();
+        });
+
+        window.addEventListener('orientationchange', function() {
+            setTimeout(() => {
+                if (!isMobileDevice()) window.scrollTo(0, 0);
+                const modal = document.getElementById('videoModal');
+                if (modal.classList.contains('active')) {
+                    modal.style.alignItems = 'center';
+                }
+            }, 500);
+        });
+
+        document.getElementById('videoModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeVideo();
+            }
+        });
+
+        document.getElementById('photoModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closePhoto();
+            }
+        });
+
+        document.getElementById('areYouSureModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                this.style.display = 'none';
+            }
+        });
+
+        document.getElementById('celebrationOverlay').addEventListener('click', function(e) {
+            restartJourney();
+        });
+
+        document.getElementById('celebrationOverlay').addEventListener('touchstart', function(e) {
+            restartJourney();
+        }, { passive: true });
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                const videoModal = document.getElementById('videoModal');
+                if (videoModal.classList.contains('active')) {
+                    closeVideo();
+                }
+                
+                const photoModal = document.getElementById('photoModal');
+                if (photoModal.classList.contains('active')) {
+                    closePhoto();
+                }
+                
+                const areYouSureModal = document.getElementById('areYouSureModal');
+                if (areYouSureModal.style.display === 'flex') {
+                    areYouSureModal.style.display = 'none';
+                }
+                
+                const celebration = document.getElementById('celebrationOverlay');
+                if (celebration.style.display === 'flex') {
+                    restartJourney();
+                }
+            }
+        });
+
+        document.querySelectorAll('video, audio').forEach(media => {
+            media.addEventListener('error', function() {
+                console.log('Media error:', this.src);
+            });
+            
+            media.addEventListener('loadstart', function() {
+                console.log('Media loading:', this.src);
+            });
+        });
+
+        let resizeTimeout;
+        window.addEventListener('resize', function() {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(() => {
+                if (!isMobileDevice()) window.scrollTo(0, 0);
+            }, 250);
+        });
+
+    </script>
+</body>
+</html>
